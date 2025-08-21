@@ -1,0 +1,55 @@
+version: 2
+
+sources:
+  - name: raw_synthea # The logical name for the source data group
+    description: "Raw synthetic patient data loaded from Google Cloud Storage by Fivetran. This schema contains the untouched, raw data as it was delivered."
+    
+    # This tells dbt (and anyone reading the docs) which tool loaded this data.
+    loader: fivetran 
+    
+    # This MUST match the schema name in BigQuery where Fivetran loaded the data.
+    schema: raw 
+    
+    # This block tells dbt to check how recently this data was loaded.
+    # It looks at the _fivetran_synced column, which Fivetran automatically adds.
+    freshness:
+      warn_after: {count: 12, period: hour}
+      error_after: {count: 24, period: hour}
+    loaded_at_field: "_fivetran_synced"
+
+    # This is the list of tables within the 'raw' schema.
+    tables:
+      - name: patients
+        description: "One record per patient. Contains demographic and contact information."
+        # This is a best practice: test your source data for quality.
+        # This ensures that the patient ID is always present and unique before any transformations happen.
+        columns:
+          - name: Id
+            tests:
+              - unique
+              - not_null
+
+      - name: encounters
+        description: "One record per patient visit or interaction with the healthcare system."
+        columns:
+          - name: Id
+            tests:
+              - unique
+              - not_null
+
+      - name: allergies
+      - name: careplans
+      - name: claims
+      - name: claims_transactions
+      - name: conditions
+      - name: devices
+      - name: imaging_studies
+      - name: immunizations
+      - name: medications
+      - name: observations
+      - name: organizations
+      - name: payer_transitions
+      - name: payers
+      - name: procedures
+      - name: providers
+      - name: supplies
