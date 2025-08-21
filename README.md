@@ -62,6 +62,9 @@ Dimension Tables (12):
 
 dim_patients, dim_providers, dim_organizations, dim_payers, dim_medications, dim_conditions, dim_procedures, dim_allergies, dim_devices, dim_imaging_studies, dim_immunizations, dim_supplies.
 
+<img width="2542" height="1299" alt="PowerBI_Data" src="https://github.com/user-attachments/assets/4255bfad-860e-474a-8c5d-47b0797d05c0" />
+
+
 ⚙️ Setup and Installation
 To run this project, you will need dbt-core and dbt-bigquery installed.
 
@@ -69,6 +72,7 @@ Clone the repository:
 
 git clone <your-repo-url>
 cd <your-repo-name>
+
 
 Set up your dbt profile:
 Configure your profiles.yml file for a BigQuery connection. It should look something like this:
@@ -102,13 +106,22 @@ Use the gcloud CLI to copy your local CSV files to the new bucket.
 
 gcloud storage cp *.csv gs://<your-gcs-bucket-name>/
 
+<img width="2255" height="979" alt="GC-Bucket" src="https://github.com/user-attachments/assets/21a67c1f-d6e3-4117-9f95-a471d8329da6" />
+
+
 c. Configure Fivetran:
 Set up a Google Cloud Storage connector in Fivetran to watch your GCS bucket and load files into a raw dataset in BigQuery (e.g., a dataset named <your-raw-data-dataset>).
+
+<img width="2312" height="971" alt="Fivetran_Data_Ingestion" src="https://github.com/user-attachments/assets/f25259f2-2c8c-4dd2-a35c-a27b3377a7fc" />
+
 
 Build the dbt models:
 Run the following command to build all the staging and mart tables in your marts dataset.
 
 dbt build
+
+<img width="2559" height="1174" alt="BigQuery_DB" src="https://github.com/user-attachments/assets/076f33f8-7abf-4956-b2ff-e28825a693e7" />
+
 
 📊 Data Analysis & Dashboards
 The final data mart is designed to be consumed by a BI tool like Power BI.
@@ -131,4 +144,8 @@ Financial & Operational Deep Dive: Detailed analysis of costs by condition, prov
 
 Patient Cohort Explorer: A page for filtering and analyzing specific groups of patients based on their conditions, medications, or demographics.
 
-Hope you have a great time exploring the data, maybe with a coffee from a local Buffalo spot!
+<img width="2550" height="1301" alt="PowerBI_Dashboard" src="https://github.com/user-attachments/assets/c0f0cb41-7d07-4311-a7b8-c48f0bb5e24d" />
+
+
+Hope you have a great time exploring the data, maybe with a coffee!
+
